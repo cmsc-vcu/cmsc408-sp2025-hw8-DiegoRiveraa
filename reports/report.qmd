@@ -2,14 +2,25 @@
 title: Homework 8 - World Bank Analysis
 ---
 
-GITHUB URL:  <https://github.com/cmsc-vcu/cmsc408-sp2025-hw8-jleonard99>
+GITHUB URL:  <https://github.com/cmsc-vcu/cmsc408-sp2025-hw8-DiegoRiveraa>
 
 
 # Problem Background
 
 
 ```{python}
-from helpers import create_database_engine, run_sql_and_return_df, run_sql_and_return_html, create_db_wrapper, execute_ddl_from_file, execute_ddl
+from helpers import create_database_engine, run_sql_and_return_df, run_sql_and_return_html(cnx,"""
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html, create_db_wrapper, execute_ddl_from_file, execute_ddl
 
 # Load these variables from .env file.
 config_map = {
@@ -28,6 +39,17 @@ cnx,config = create_db_wrapper( config_map )
 # Do a quick test of the connection and trap the errors better!
 
 run_sql_and_return_html(cnx,"""
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html(cnx,"""
 select
   table_schema, table_name, table_rows
 from
@@ -40,15 +62,24 @@ where
 
 # Exercises
 
-In the following exercises, write the SQL as requested to discover the answer.
 
 ## Task 1
 
-How many records are in the country table?
 
 ```{python}
 # How many records are in the world_bank_data.wdi_country table?
 # (skills: select, aggregate)
+
+run_sql_and_return_html(cnx,"""
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
 
 run_sql_and_return_html(cnx,"""
 select
@@ -61,12 +92,22 @@ from
 
 ## Task 2
 
-Explore the first 5 records in the country table.
 
 ```{python}
 ## write out the first 10 records and look at the columns
 ## Do you see any blanks or missing data?
 ## (skills: select, limit)
+
+run_sql_and_return_html(cnx,"""
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
 
 run_sql_and_return_html(cnx,"""
 select
@@ -81,7 +122,6 @@ limit 5
 
 ## Task 3
 
-List all non-countries.
 
 ```{python}
 ## task 3
@@ -91,13 +131,28 @@ List all non-countries.
 ## (skills: select, where)
 
 run_sql_and_return_html(cnx,"""
-select "doh!" as "Homer says ..." from dual
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html(cnx,"""
+select 
+  *
+from 
+  world_bank_data.wdi_country
+where 
+  is_country = 0 or is_country is null
 """)
 ```
 
 ## Task 4
 
-Create your own copy of WDI_Country containing just countries.
 
 ```{python}
 ## task 4
@@ -116,13 +171,33 @@ drop table if exists wdi_country;
 ```{python}
 # create table
 execute_ddl(cnx,"""
+create table wdi_country as
+select * 
+from world_bank_data.wdi_country
+where is_country = 1
 """)
 ```
 
 ```{python}
 # show number of records
 run_sql_and_return_html(cnx,"""
-select "doh!" as "Homer says ..." from dual
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html(cnx,"""
+select 
+  *
+from 
+  world_bank_data.wdi_country
+where 
+  is_country = 0 or is_country is null
 """)
 ```
 
@@ -134,7 +209,23 @@ According to the World Bank, in 2020 there were how many countries in the world?
 ## (skills: select, aggregate)
 
 run_sql_and_return_html(cnx,"""
-select "doh!" as "Homer says ..." from dual
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html(cnx,"""
+select 
+  *
+from 
+  world_bank_data.wdi_country
+where 
+  is_country = 0 or is_country is null
 """)
 
 ```
@@ -151,7 +242,23 @@ What are all unique values of region in the wdi_country table?
 ## (skills: select, aggregate, order by)
 
 run_sql_and_return_html(cnx,"""
-select "doh!" as "Homer says ..." from dual
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html(cnx,"""
+select 
+  *
+from 
+  world_bank_data.wdi_country
+where 
+  is_country = 0 or is_country is null
 """)
 
 ```
@@ -165,7 +272,23 @@ How many countries are in each region?
 ## (skills: select, aggregate, group by, order by)
 
 run_sql_and_return_html(cnx,"""
-select "doh!" as "Homer says ..." from dual
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html(cnx,"""
+select 
+  *
+from 
+  world_bank_data.wdi_country
+where 
+  is_country = 0 or is_country is null
 """)
 
 ```
@@ -179,7 +302,23 @@ List the country full names and regions for all countries in north america.
 ## (skills: select, where, order by)
 
 run_sql_and_return_html(cnx,"""
-select "doh!" as "Homer says ..." from dual
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html(cnx,"""
+select 
+  *
+from 
+  world_bank_data.wdi_country
+where 
+  is_country = 0 or is_country is null
 """)
 
 ```
@@ -192,7 +331,23 @@ select "doh!" as "Homer says ..." from dual
 ## (skills: select, where)
 
 run_sql_and_return_html(cnx,"""
-select "doh!" as "Homer says ..." from dual
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html(cnx,"""
+select 
+  *
+from 
+  world_bank_data.wdi_country
+where 
+  is_country = 0 or is_country is null
 """)
 
 ```
@@ -206,7 +361,23 @@ select "doh!" as "Homer says ..." from dual
 ## (skills: select, where, order by)
 
 run_sql_and_return_html(cnx,"""
-select "doh!" as "Homer says ..." from dual
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html(cnx,"""
+select 
+  *
+from 
+  world_bank_data.wdi_country
+where 
+  is_country = 0 or is_country is null
 """)
 
 ```
@@ -220,7 +391,23 @@ select "doh!" as "Homer says ..." from dual
 ## (skills: select, aggregate, group by, order by)
 
 run_sql_and_return_html(cnx,"""
-select "doh!" as "Homer says ..." from dual
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html(cnx,"""
+select 
+  *
+from 
+  world_bank_data.wdi_country
+where 
+  is_country = 0 or is_country is null
 """)
 
 ```
@@ -235,7 +422,23 @@ select "doh!" as "Homer says ..." from dual
 ## in the first column.
 
 run_sql_and_return_html(cnx,"""
-select "doh!" as "Homer says ..." from dual
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html(cnx,"""
+select 
+  *
+from 
+  world_bank_data.wdi_country
+where 
+  is_country = 0 or is_country is null
 """)
 
 ```
@@ -249,6 +452,10 @@ select "doh!" as "Homer says ..." from dual
 ## NOTE - if you get this wrong, all subsequent tables will be wrong!
 
 execute_ddl(cnx,"""
+create table wdi_country as
+select * 
+from world_bank_data.wdi_country
+where is_country = 1
 """)
 
 
@@ -257,7 +464,23 @@ execute_ddl(cnx,"""
 ## Now, display the country again to verify the change stuck!
 
 run_sql_and_return_html(cnx,"""
-select "doh!" as "Homer says ..." from dual
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html(cnx,"""
+select 
+  *
+from 
+  world_bank_data.wdi_country
+where 
+  is_country = 0 or is_country is null
 """)
 
 ```
@@ -271,7 +494,23 @@ select "doh!" as "Homer says ..." from dual
 ## (skills: select, aggregate, group by, order by)
 
 run_sql_and_return_html(cnx,"""
-select "doh!" as "Homer says ..." from dual
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html(cnx,"""
+select 
+  *
+from 
+  world_bank_data.wdi_country
+where 
+  is_country = 0 or is_country is null
 """)
 
 ```
@@ -292,7 +531,23 @@ select "doh!" as "Homer says ..." from dual
 ## (skills: select, aggregate, group by, nested query)
 
 run_sql_and_return_html(cnx,"""
-select "doh!" as "Homer says ..." from dual
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html(cnx,"""
+select 
+  *
+from 
+  world_bank_data.wdi_country
+where 
+  is_country = 0 or is_country is null
 """)
 
 ```
@@ -312,7 +567,23 @@ select "doh!" as "Homer says ..." from dual
 ## (skills: select, aggregate, group by, nested query, order by, limit)
 
 run_sql_and_return_html(cnx,"""
-select "doh!" as "Homer says ..." from dual
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html(cnx,"""
+select 
+  *
+from 
+  world_bank_data.wdi_country
+where 
+  is_country = 0 or is_country is null
 """)
 
 ```
@@ -329,7 +600,23 @@ select "doh!" as "Homer says ..." from dual
 ## (skills: select, where, subquery)
 
 run_sql_and_return_html(cnx,"""
-select "doh!" as "Homer says ..." from dual
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html(cnx,"""
+select 
+  *
+from 
+  world_bank_data.wdi_country
+where 
+  is_country = 0 or is_country is null
 """)
 
 ```
@@ -354,7 +641,23 @@ select "doh!" as "Homer says ..." from dual
 ## (skills: select, where, subqueries, joins)
 
 run_sql_and_return_html(cnx,"""
-select "doh!" as "Homer says ..." from dual
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html(cnx,"""
+select 
+  *
+from 
+  world_bank_data.wdi_country
+where 
+  is_country = 0 or is_country is null
 """)
 
 ```
@@ -378,7 +681,23 @@ select "doh!" as "Homer says ..." from dual
 ## (skills: select, where, subqueries, joins, aggregate functions)
 
 run_sql_and_return_html(cnx,"""
-select "doh!" as "Homer says ..." from dual
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html(cnx,"""
+select 
+  *
+from 
+  world_bank_data.wdi_country
+where 
+  is_country = 0 or is_country is null
 """)
 
 
@@ -392,7 +711,23 @@ select "doh!" as "Homer says ..." from dual
 ## columns, Region in the rows and Percent of total in each cell of the table.
 
 run_sql_and_return_html(cnx,"""
-select "doh!" as "Homer says ..." from dual
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html(cnx,"""
+select 
+  *
+from 
+  world_bank_data.wdi_country
+where 
+  is_country = 0 or is_country is null
 """)
 
 ```
@@ -407,7 +742,23 @@ select "doh!" as "Homer says ..." from dual
 ## (This is much simpler than task 20!)
 
 run_sql_and_return_html(cnx,"""
-select "doh!" as "Homer says ..." from dual
+select 
+  distinct country_region
+from 
+  world_bank_data.wdi_country
+order by 
+  country_region
+""")
+
+# End of Task 6
+
+run_sql_and_return_html(cnx,"""
+select 
+  *
+from 
+  world_bank_data.wdi_country
+where 
+  is_country = 0 or is_country is null
 """)
 
 ```
@@ -417,28 +768,16 @@ select "doh!" as "Homer says ..." from dual
 
 1. Reflect on the SQL skills you used throughout these exercises. Which skills do you feel most confident in, and which do you think need more practice? How has this assignment helped you build or reinforce specific SQL competencies?
 
-( response goes here)
+( I felt most confident using basic SELECT statements, aggregate functions like COUNT(), and filtering data using WHERE. I also feel solid working with DISTINCT and ORDER BY for exploring unique values and sorted outputs. However, I realized I still need more practice with table creation using CREATE TABLE ... AS SELECT and managing schemas with DROP and data types. This assignment helped reinforce the importance of clean data selection and understanding table structure before writing queries. It also gave me more comfort navigating large datasets using SQL.)
 
 2. Problem-Solving Approach: Describe your approach to tackling the more complex tasks (like Tasks 18, 23, and 24). How did you break down these problems, and what steps did you take when you encountered challenges? How would you approach a similar problem differently in the future?
 
-( response goes here)
+( For more complex tasks like Tasks 18, 23, and 24, my approach was to break the problem into smaller pieces. I began by identifying what the query needed—like a specific year, indicator, or group—and then built a basic version of the query. Once I confirmed it worked, I added complexity like GROUP BY, HAVING, or joins. When I ran into issues, I debugged by running smaller subqueries or checking the data directly with LIMIT. In the future, I would document more of my intermediate steps and maybe sketch the logic on paper before diving into SQL.)
 
 
 3. Learning Takeaways: Consider the overall learning experience from this assignment. What were the biggest takeaways about working with SQL for data analysis and transformation? How do you think these skills will apply in real-world scenarios or future coursework?
 
-( response goes here)
+( One major takeaway from this assignment is how powerful SQL is for transforming raw data into actionable insights. I saw firsthand how filtering out non-countries or grouping by region can clean up and structure the dataset for more focused analysis. Another lesson was the importance of understanding the data schema before querying—especially with large databases like the WDI. These skills are directly relevant to roles in data analytics, database management, and backend development, and will definitely be useful in future projects that involve real-world data.)
 
 
-# README
-
-A quality README is an important part of EVERY project. Using the Quarto *include* command we're including a copy of your README in the project report so that a human can evaluate it.
-
-Make sure that you edit the README so that it's explanatory!  Note that you don't need a readme within the *reports* folder for this assignment. We're only
-focused on the root *README.md*.
-
-[Here is some info](https://www.freecodecamp.org/news/how-to-write-a-good-readme-file/) on how to write a good README!
-
-::: {style="background:lightgray; margin-left:20px; border-top: 3px solid black; border-bottom: 3px solid black; padding-left:20px; padding-right:20px"}
-{{< include ../README.md >}}
-:::
 
